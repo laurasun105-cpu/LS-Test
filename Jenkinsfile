@@ -33,6 +33,7 @@ pipeline {
             steps {
                 bat '''
                     rmdir /s /q deploy
+                    copy index.html deploy\
                     mkdir deploy
                     xcopy dist deploy\\dist /E /I
                     powershell Compress-Archive -Path deploy\\* -DestinationPath deploy.zip -Force
