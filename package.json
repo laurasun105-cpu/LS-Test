@@ -1,0 +1,17 @@
+{
+  "name": "js-test-project",
+  "version": "1.0.0",
+  "description": "JS 本地测试项目",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node test/index.test.js",
+     "lint": "eslint src/ test/"
+  },
+   "devDependencies": {
+    "eslint": "^8.57.0"
+  },
+  "keywords": ["js", "test","lint", "gitlab"],
+  "author": "",
+  "license": "MIT"
+}
