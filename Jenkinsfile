@@ -36,8 +36,7 @@ pipeline {
                 mkdir deploy
                 copy index.html deploy
                 xcopy src deploy/src /E /I
-                xcopy dist deploy/dist /E /I
-                powershell Compress-Archive -Path deploy\\* -DestinationPath deploy.zip -Force
+                powershell "Compress-Archive -Path 'deploy/*' -DestinationPath 'deploy.zip' -Force"
                 echo "Deploy package created successfully"
                 '''
             }
