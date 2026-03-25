@@ -14,8 +14,8 @@ pipeline {
         stage('Build') {
             steps {
                 bat '''
-                    if [ ! -f "test/index.test.js" ]; then echo "index.test.js not found!" && exit 1; fi
-                    if [ ! -f "src/index.js" ]; then echo "src/index.js not found!" && exit 1; fi
+                    if [ ! -f "test\index.test.js" ]; then echo "index.test.js not found!" && exit 1; fi
+                    if [ ! -f "src\index.js" ]; then echo "src/index.js not found!" && exit 1; fi
                     echo "Build passed"
                     ls -la
                 '''
