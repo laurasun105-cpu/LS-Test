@@ -17,7 +17,7 @@ pipeline {
                     if not exist "test\\index.test.js" (echo index.test.js not found! & exit 1)
                     if not exist "src\\index.js" (echo index.js not found! & exit 1)
                     echo "Build passed"
-                    ls -la
+                    dir
                 '''
             }
         }
@@ -31,9 +31,14 @@ pipeline {
         }
          stage('Deploy') {
             steps {
-                bat 'mkdir deploy'
-                bat 'xcopy dist deploy\\dist /E /I'
-                bat 'powershell Compress-Archive deploy deploy.zip'
+                bat '''
+                    if not exist dist (echo dist folder not found! & exit 1)
+                    rmdir /s /q deploy
+                    mkdir deploy
+                    xcopy dist deploy\\dist /E /I
+                    powershell Compress-Archive -Path deploy\\* -DestinationPath deploy.zip -Force
+                    echo "Deploy package created successfully"
+                '''
             }
         }
     }
