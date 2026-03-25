@@ -7,16 +7,33 @@ pipeline {
                  bat '''
                  npm install
                  npm run lint
+                 echo "Lint passed"
                 '''
             }
         }
-        stage('Build Verify') {
+        stage('Build') {
             steps {
                 bat '''
-                    if [ ! -f "index.html" ]; then exit 1; fi
-                    if [ ! -f "src/main.js" ]; then exit 1; fi
-                    echo "验证通过"
+                    if [ ! -f "test/index.test.js" ]; then echo "index.test.js not found!" && exit 1; fi
+                    if [ ! -f "src/index.js" ]; then echo "src/index.js not found!" && exit 1; fi
+                    echo "Build passed"
+                    ls -la
                 '''
+            }
+        }
+        stage('Test') {
+            steps {
+                 bat '''
+                 npm npm test
+                 echo "Test passed"
+                '''
+            }
+        }
+         stage('Deploy') {
+            steps {
+                bat 'mkdir deploy'
+                bat 'xcopy dist deploy\\dist /E /I'
+                bat 'powershell Compress-Archive deploy deploy.zip'
             }
         }
     }
