@@ -36,7 +36,8 @@ pipeline {
                 mkdir deploy
                 copy index.html deploy
                 xcopy src deploy/src /E /I
-                powershell "Compress-Archive -Path 'deploy/*' -DestinationPath 'deploy.zip' -Force"
+                ppowershell "Set-Location .; Compress-Archive -Path 'deploy/*' -DestinationPath 'deploy.zip' -Force"
+                dir
                 echo "Deploy package created successfully"
                 '''
             }
@@ -44,7 +45,7 @@ pipeline {
     }
     post {
         success {
-            archiveArtifacts artifacts: 'deploy.zip', allowEmptyArchive: false
+            archiveArtifacts artifacts: '**/*.zip', allowEmptyArchive: false
         }
     }
 }
