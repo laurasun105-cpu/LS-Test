@@ -24,7 +24,7 @@ pipeline {
         stage('Test') {
             steps {
                  bat '''
-                 npm npm test
+                 npm test
                  echo "Test passed"
                 '''
             }
