@@ -32,7 +32,6 @@ pipeline {
          stage('Deploy') {
             steps {
                 bat '''
-                    if not exist dist (echo dist folder not found! & exit 1)
                     rmdir /s /q deploy
                     mkdir deploy
                     xcopy dist deploy\\dist /E /I
@@ -40,6 +39,11 @@ pipeline {
                     echo "Deploy package created successfully"
                 '''
             }
+        }
+    }
+    post {
+        success {
+            archiveArtifacts artifacts: 'deploy.zip', allowEmptyArchive: false
         }
     }
 }
