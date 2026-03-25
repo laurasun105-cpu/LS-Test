@@ -33,8 +33,8 @@ pipeline {
             steps {
                 bat '''
                     rmdir /s /q deploy
-                    copy index.html deploy\
                     mkdir deploy
+                    copy index.html deploy\
                     xcopy dist deploy\\dist /E /I
                     powershell Compress-Archive -Path deploy\\* -DestinationPath deploy.zip -Force
                     echo "Deploy package created successfully"
